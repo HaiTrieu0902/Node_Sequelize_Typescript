@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import routerInit from './routes/Routes';
 const cors = require('cors');
 const dotenv = require('dotenv');
 // const connect = require('./config/connectDB');
@@ -13,6 +14,9 @@ app.use(cors());
 app.get('/', (req: Request, res: Response) => {
     return res.status(200).send({ message: 'Server is running' });
 });
+
+/* Router Init */
+app.use(routerInit);
 
 // connect();
 app.listen(process.env.APP_PORT, () => {
