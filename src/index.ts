@@ -1,5 +1,5 @@
 import express, { Request, Response } from 'express';
-import routerInit from './routes/Routes';
+import routerInit from './routes';
 const cors = require('cors');
 const dotenv = require('dotenv');
 // const connect = require('./config/connectDB');
@@ -16,8 +16,8 @@ app.get('/', (req: Request, res: Response) => {
 });
 
 /* Router Init */
-app.use(routerInit);
-
+// app.use(routerInit);
+routerInit(app);
 // connect();
 app.listen(process.env.APP_PORT, () => {
     console.log(`Example app listening on port ${process.env.APP_PORT}`);
