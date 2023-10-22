@@ -22,6 +22,29 @@ const StaffController = {
             return res.status(500).send(Helper.ResponseData(500, '', error, null));
         }
     },
+    Login: async (req: Request, res: Response): Promise<Response> => {
+        try {
+            const { email, password } = req.body;
+            const staff = await Staff.findOne({
+                where: {
+                    email: email,
+                },
+            });
+            if (!staff) {
+                return res.status(401).send(Helper.ResponseData(401, 'Unauthorized', null, null));
+            }
+
+            const matched = await PasswordHelper.PasswordCompare(password, staff.password);
+
+            if (!matched) {
+                return res.status(401).send(Helper.ResponseData(401, 'Password is wrong', null, null));
+            }
+
+            return res.status(200).send(Helper.ResponseData(200, 'Login successfully', null, staff));
+        } catch (error) {
+            return res.status(500).send(Helper.ResponseData(500, '', error, null));
+        }
+    },
 };
 
 export default StaffController;

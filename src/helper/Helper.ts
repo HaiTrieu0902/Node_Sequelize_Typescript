@@ -7,7 +7,14 @@ const ResponseData = (status: number, message: string | null, error: any | null,
         };
         return response;
     }
-
+    if (error) {
+        const res = {
+            status,
+            message,
+            error: error,
+        };
+        return res;
+    }
     const res = {
         status,
         message,
