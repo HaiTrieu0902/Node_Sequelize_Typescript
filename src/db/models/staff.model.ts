@@ -6,7 +6,8 @@ interface StaffAttributes {
     userName?: string;
     email?: string;
     role?: string;
-    password?: string;
+    password?: string | any;
+    roleId?: number;
     accesstoken?: string;
     createdAt?: Date;
     updatedAt?: Date;
@@ -22,6 +23,7 @@ class Staff extends Model<StaffAttributes, StaffInput> implements StaffAttribute
     public role!: string;
     public password!: string;
     public accesstoken!: string;
+    public roleId!: number;
     public readonly createdAt!: Date;
     public readonly updatedAt!: Date;
 }
@@ -45,6 +47,10 @@ Staff.init(
         role: {
             allowNull: false,
             type: DataTypes.STRING,
+        },
+        roleId: {
+            allowNull: false,
+            type: DataTypes.BIGINT,
         },
         password: {
             allowNull: false,

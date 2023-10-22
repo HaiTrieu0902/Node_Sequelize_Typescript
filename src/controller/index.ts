@@ -1,2 +1,3 @@
 import UserController from './UserController';
-export { UserController };
+import StaffController from './StaffController';
+export { UserController, StaffController };
