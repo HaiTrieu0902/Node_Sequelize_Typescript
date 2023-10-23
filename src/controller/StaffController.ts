@@ -33,14 +33,33 @@ const StaffController = {
             if (!staff) {
                 return res.status(401).send(Helper.ResponseData(401, 'Unauthorized', null, null));
             }
-
             const matched = await PasswordHelper.PasswordCompare(password, staff.password);
-
             if (!matched) {
                 return res.status(401).send(Helper.ResponseData(401, 'Password is wrong', null, null));
             }
+            const dataStaff = {
+                id: staff?.id,
+                userName: staff?.userName,
+                email: staff?.email,
+                role: staff?.role,
+            };
+            const token = Helper?.GenerationToken(dataStaff);
+            const refreshToken = Helper?.RefreshToken(dataStaff);
+            staff.accesstoken = refreshToken;
+            await staff.save();
+            res.cookie('refreshToken', refreshToken, {
+                httpOnly: true,
+                maxAge: 24 * 60 * 60 * 1000,
+            });
+            const dataRes = {
+                id: staff?.id,
+                userName: staff?.userName,
+                email: staff?.email,
+                role: staff?.role,
+                token: token,
+            };
 
-            return res.status(200).send(Helper.ResponseData(200, 'Login successfully', null, staff));
+            return res.status(200).send(Helper.ResponseData(200, 'Login successfully', null, dataRes));
         } catch (error) {
             return res.status(500).send(Helper.ResponseData(500, '', error, null));
         }

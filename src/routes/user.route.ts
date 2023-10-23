@@ -1,8 +1,9 @@
 import { UserController } from '../controller';
+import auth from '../middleware/auth';
 const express = require('express');
 const router = express.Router();
 
-router.get('/getAllUser', UserController.GetAllUser);
+router.get('/getAllUser', auth.Authenticated, UserController.GetAllUser);
 router.get('/getUser/:id', UserController.GetDetailUser);
 router.post('/createUser', UserController.CreateUser);
 router.put('/updateUser/:id', UserController.UpdateUser);
