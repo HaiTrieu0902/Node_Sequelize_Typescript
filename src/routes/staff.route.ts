@@ -5,5 +5,6 @@ const router = express.Router();
 
 router.post('/register', StaffValidation?.RegisterValidation, StaffController.Register);
 router.post('/login', StaffController.Login);
+router.get('/refreshToken', StaffController.RefreshToken);
 
 export default router;

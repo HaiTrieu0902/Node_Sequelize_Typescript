@@ -1,4 +1,6 @@
 'use strict';
+// const Roles = sequelize.define('Roles', { name: DataTypes.STRING });
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
     async up(queryInterface, Sequelize) {
@@ -41,6 +43,7 @@ module.exports = {
                 type: Sequelize.DATE,
             },
         });
+        // Movie.belongsToMany(Actor, { through: ActorMovies });
     },
     async down(queryInterface, Sequelize) {
         await queryInterface.dropTable('Staffs');

@@ -2,6 +2,7 @@ import jwt from 'jsonwebtoken';
 import dotenv from 'dotenv';
 
 interface IStaff {
+    id?: string;
     userName?: string | null;
     email?: string | null;
     role?: string | null;
